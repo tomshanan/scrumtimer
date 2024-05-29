@@ -38,6 +38,7 @@ import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { TipsComponent } from './tips/tips.component';
 import { BackgroundCloudsComponent } from "./background-clouds/background-clouds.component";
 import { TransitionCloudsComponent } from "./transition-clouds/transition-clouds.component";
+import { ShareableLinkComponent } from "./shareable-link/shareable-link.component";
 
 @Component({
     selector: 'app-root',
@@ -56,7 +57,8 @@ import { TransitionCloudsComponent } from "./transition-clouds/transition-clouds
         ClipboardModule,
         TipsComponent,
         BackgroundCloudsComponent,
-        TransitionCloudsComponent
+        TransitionCloudsComponent,
+        ShareableLinkComponent
     ]
 })
 export class AppComponent implements OnInit {
@@ -80,7 +82,7 @@ export class AppComponent implements OnInit {
 
   destroyListenerToRoute = new Subject<void>();
 
-  linkCopied: boolean = false;
+
 
   get totalSessionTime(): number {
     return this.session.timeLog.reduce((t, log) => t + log.time, 0);
@@ -316,26 +318,5 @@ export class AppComponent implements OnInit {
     this.document.defaultView?.scrollTo(0, 0);
   }
 
-  share() {
-    let queryParams = {
-      p: this.settings.participants.map((p) => p.name).join(','),
-      t: [this.settings.timer.min, this.settings.timer.sec].join(','),
-      useP: this.settings.useParticipants,
-    };
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams,
-    });
 
-    setTimeout(() => {
-      const currentUrlWithQueryParams =
-        location.origin + '/' + this.location.path(true);
-      this.clipboard.copy(currentUrlWithQueryParams);
-      this.linkCopied = true;
-
-      setTimeout(() => {
-        this.linkCopied = false;
-      }, 2000);
-    }, 0);
-  }
 }

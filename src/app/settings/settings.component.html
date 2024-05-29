@@ -8,14 +8,14 @@
     <button
       type="button"
       class="decrease"
-      (click)="decreaseTime()">
+      (mousedown)="decreaseTime()">
       ➖
     </button>
     <div class="time">{{ pad(min.value)}}:{{pad(sec.value)}}</div>
     <button
       type="button"
       class="increase"
-      (click)="increaseTime()">
+      (mousedown)="increaseTime()">
       ➕
     </button>
   </div>
@@ -40,7 +40,7 @@
       <button
         class="add-participant"
         type="button"
-        (click)="addParticipantFromNameField()">
+        (mousedown)="addParticipantFromNameField()">
         ➕
       </button>
     </div>
@@ -66,7 +66,7 @@
         <button
           type="button"
           class="remove"
-          (click)="removeParticipant(i)">
+          (mousedown)="removeParticipant(i)">
           &#10006;
         </button>
       </div>

@@ -1,0 +1,22 @@
+<button
+  type="button"
+  (mousedown)="share()"
+  class="share-link-btn"
+  alt="Create shareable link to current settings"
+  title="Create shareable link to current settings"
+  [style.display]="linkCopied ? 'none' : null">
+  <span>Copy shareable link</span>
+  &nbsp;
+  <app-svg
+    [fileName]="'link'"
+    style="width: 1em; height: 1em;"
+    svgStyles="fill: currentColor;"></app-svg>
+</button>
+
+
+
+<p
+  class="link-copied"
+  [style.display]="!linkCopied ? 'none' : null">
+  Link copied 👍
+</p>

@@ -13,19 +13,8 @@
 <div class="content-wrapper">
   <h1>The Ralph Timer</h1>
 
-  <div class="share-container" *ngIf="session.state === sessionState.SETUP">
-    @if (!linkCopied) {
-      <button type="button" (click)="share()" class="share-link-btn" alt="Create shareable link to current settings" title="Create shareable link to current settings">
-        <span>Copy shareable link</span>&nbsp;
-        <app-svg [fileName]="'link'"></app-svg>
-      </button>
-    }
-    @else {
-      <p class="link-copied">
-        Link copied 👍
-      </p>
-    }
-  </div>
+  <app-shareable-link [settings]="settings"  *ngIf="session.state === sessionState.SETUP"></app-shareable-link>
+
   <div class="main">
 
   @switch (session.state) {
@@ -33,7 +22,7 @@
       <div @zoom>
         <div class="settings center">
           <app-settings [(settings)]="settings" (settingsChange)="storeSettings($event)"></app-settings>
-          <button class="btn big-btn yellow" (click)="startSession()" style="margin-top: 40px;">Start</button>
+          <button class="btn big-btn yellow" (mousedown)="startSession()" style="margin-top: 40px;">Start</button>
         </div>
       </div>
     }
@@ -55,19 +44,19 @@
           <div class="center">
             <button
               class="btn sml-btn"
-              (click)="timer.startStopTimer()">
+              (mousedown)="timer.startStopTimer()">
               {{isRunning ? 'Pause' : 'Start'}}
             </button>
             @if(nextParticipant){
               <button
                 class="btn sml-btn"
-                (click)="snooze();">
+                (mousedown)="snooze();">
                 Snooze
               </button>
             }
             <button
               class="btn sml-btn"
-              (click)="timer.restartTimer();">
+              (mousedown)="timer.restartTimer();">
               Restart
             </button>
 
@@ -75,7 +64,7 @@
               <br>
               <button
               class="btn med-btn yellow"
-              (click)="next()">
+              (mousedown)="next()">
               Next<span class="symbol">&#x3a;</span>&nbsp;<span class="upper">{{nextParticipant}}</span>
             </button>
             }
@@ -83,12 +72,12 @@
               <br>
               <button
               class="btn med-btn"
-              (click)="addSpeaker()">
+              (mousedown)="addSpeaker()">
               Add Speaker
             </button>
             <button
               class="btn med-btn yellow"
-              (click)="finish()">
+              (mousedown)="finish()">
               Finish
             </button>
             }
@@ -119,7 +108,7 @@
           </div>
         }
         <div class="center">
-          <button class="btn big-btn" (click)="restart()">Restart</button>
+          <button class="btn big-btn" (mousedown)="restart()">Restart</button>
         </div>
       </div>
       </div>
