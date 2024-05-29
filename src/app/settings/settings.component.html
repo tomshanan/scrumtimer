@@ -1,0 +1,75 @@
+<form
+  [formGroup]="settingsForm"
+  action>
+  <h3>Time per participant</h3>
+  <div class="timer-settings">
+
+
+    <button
+      type="button"
+      class="decrease"
+      (click)="decreaseTime()">
+      ➖
+    </button>
+    <div class="time">{{ pad(min.value)}}:{{pad(sec.value)}}</div>
+    <button
+      type="button"
+      class="increase"
+      (click)="increaseTime()">
+      ➕
+    </button>
+  </div>
+  <h3>
+    <app-checkbox
+        type="checkbox"
+        formControlName="useParticipants"
+        class="checkbox"
+        name="use-participants"
+        id="use-participants" /> Use Participants
+
+
+  </h3>
+  <div class="participants-settings" *ngIf="useParticipants.value" [@fadeInExpandOnEnter] [@fadeOutCollapseOnLeave]>
+    <div class="name-input">
+      <input
+        type="text"
+        class="name"
+        [formControl]="newName"
+        placeholder="Enter Name..."
+        (keydown.enter)="addParticipantFromNameField()">
+      <button
+        class="add-participant"
+        type="button"
+        (click)="addParticipantFromNameField()">
+        ➕
+      </button>
+    </div>
+    <div
+      class="participant-container"
+      FormArrayName="participants">
+      <div
+        class="participant"
+        [formGroup]="participant"
+        *ngFor="let participant of participants.controls; let i = index"
+        [@flipInXOnEnter]
+        [@shake]="participant.get('name')?.value === alertParticipant"
+        (@shake.done)="alertParticipant = ''"
+        >
+        <app-checkbox
+          type="checkbox"
+          formControlName="include"
+          class="checkbox"
+          name="include-{{participant.get('name')?.value}}"
+          id="include-{{participant.get('name')?.value}}">
+        </app-checkbox>
+        {{participant.get('name')?.value}}
+        <button
+          type="button"
+          class="remove"
+          (click)="removeParticipant(i)">
+          &#10006;
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,31 @@
+:host{
+  display: inline-block;
+}
+.stop-watch {
+  color: #ffffff;
+  text-shadow: -3px 3px black;
+  -webkit-text-stroke: 1px black;
+  font-family: monospace;
+  font-weight: 600;
+  font-style: normal;
+
+  text-align: center;
+  font-size: clamp(3rem, 10vw + 1rem, 8rem);;
+  padding: 30px;
+
+  &.beat {
+    animation-name: beat;
+    animation-duration: 1s;
+    animation-fill-mode: backwards;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes beat {
+  0%, 90%, 100% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.1);
+  }
+}

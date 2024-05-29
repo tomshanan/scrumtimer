@@ -1,0 +1,51 @@
+$baseTime: 45s;
+
+.cloud {
+  // --transition-time: null; // set by the template
+  --speed-offset: 0s;
+  --offset-x: 0s;
+  --offset-y: 0px;
+  position: absolute;
+  top: var(--offset-y);
+  animation-name: cloud;
+  animation-timing-function: linear;
+  animation-delay: var(--offset-x);
+  animation-iteration-count: infinite;
+
+  &.lg {
+    width: clamp(300px, 50vw, 600px);
+    z-index: 3;
+    animation-duration: var(
+      --transition-time,
+      calc(var(--speed-offset) + $baseTime * 1)
+    );
+  }
+
+  &.md {
+    width: clamp(150px, 30vw, 350px);
+    animation-duration: var(
+      --transition-time,
+      calc(var(--speed-offset) + $baseTime * 2)
+    );
+    z-index: 2;
+  }
+
+  &.sm {
+    width: clamp(75px, 20vw, 200px);
+    animation-duration: var(
+      --transition-time,
+      calc(var(--speed-offset) + $baseTime * 3)
+    );
+    z-index: 1;
+  }
+}
+
+@keyframes cloud {
+  0% {
+    transform: translateX(calc(100vw + 300%));
+  }
+
+  100% {
+    transform: translateX(-300%);
+  }
+}

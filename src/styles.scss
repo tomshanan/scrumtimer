@@ -1,1 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
+body,
+html {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  @media (pointer: none), (pointer: coarse) {
+    min-height: 100vmin;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#eyes-closed {
+  display: none;
+
+  animation-name: ralphs-eyes;
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-name: ralphs-eyes-wk;
+  -webkit-animation-duration: 20s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@keyframes ralphs-eyes {
+  0%,
+  5%,
+  7%,
+  34%,
+  36%,
+  90%,
+  92%,
+  100% {
+    display: none;
+  }
+  6%,
+  35%,
+  91% {
+    display: block;
+  }
+}
+
+@-webkit-keyframes ralphs-eyes-wk {
+  0%,
+  5%,
+  7%,
+  34%,
+  36%,
+  90%,
+  92%,
+  100% {
+    display: none;
+  }
+  6%,
+  35%,
+  91% {
+    display: block;
+  }
+}

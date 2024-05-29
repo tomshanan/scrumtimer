@@ -1,0 +1,20 @@
+<!-- <img
+  src="assets/{{fileName}}.svg"
+  class="{{size}}"
+  [style.--speed-offset]="speedOffset + 's'"
+  [style.--transition-time]="resetTransition ? '300ms' : null"
+  [style.--offset-x]="-timeOffset + 's'"
+  [style.--offset-y]="verticalOffset+'vh'"> -->
+
+
+
+<div
+  [innerHTML]="svg"
+  class="cloud {{size}}"
+  [class.paused]="(paused$ | async)"
+  [style.--speed-offset]="speedOffset + 's'"
+  [style.--transition-time]="resetTransition ? '300ms' : null"
+  [style.--offset-x]="-timeOffset + 's'"
+  [style.--offset-y]="verticalOffset+'vh'">
+
+</div>
