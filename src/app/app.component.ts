@@ -37,6 +37,7 @@ import { Subject, filter, take } from 'rxjs';
 import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { TipsComponent } from './tips/tips.component';
 import { BackgroundCloudsComponent } from "./background-clouds/background-clouds.component";
+import { TransitionCloudsComponent } from "./transition-clouds/transition-clouds.component";
 
 @Component({
     selector: 'app-root',
@@ -54,7 +55,8 @@ import { BackgroundCloudsComponent } from "./background-clouds/background-clouds
         SettingsComponent,
         ClipboardModule,
         TipsComponent,
-        BackgroundCloudsComponent
+        BackgroundCloudsComponent,
+        TransitionCloudsComponent
     ]
 })
 export class AppComponent implements OnInit {

@@ -228,28 +228,7 @@ h1 {
   }
 }
 
-.transition-clouds {
-  overflow: hidden;
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-}
-.cloud-right,
-.cloud-left {
-  position: absolute;
-  aspect-ratio: 20/5;
-  height: 50vh;
-}
 
-.cloud-right {
-  top: 200px;
-  left: 105%;
-}
-.cloud-left {
-  top: 50px;
-  right: 105%;
-}
 
 .session,
 .results-container,

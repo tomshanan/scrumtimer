@@ -7,19 +7,8 @@
       [class.show]="showRalph"></app-svg>
   </div>
 </div>
-<div class="transition-clouds">
-  <div class="cloud-left" [@cloudTransitionLeft]="session.state"><app-svg
-    fileName="cloudLarge 1"
-    class="cloud"
-    ></app-svg></div>
-  <div class="cloud-right" [@cloudTransitionRight]="session.state">
-    <app-svg
-    fileName="cloudLarge 2"
-    class="cloud"
 
-    ></app-svg>
-  </div>
-</div>
+<app-transition-clouds [trigger]="session.state"></app-transition-clouds>
 
 <div class="content-wrapper">
   <h1>The Ralph Timer</h1>
