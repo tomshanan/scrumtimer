@@ -99,12 +99,13 @@ h1 {
   }
 }
 
-.page-wrapper {
+.absolute-wrapper {
   overflow: hidden;
   position: absolute;
   inset: 0;
   z-index: -1;
 }
+
 .cloud-container {
   position: relative;
   margin: auto;

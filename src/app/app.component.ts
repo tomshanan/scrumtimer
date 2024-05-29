@@ -36,24 +36,26 @@ import {
 import { Subject, filter, take } from 'rxjs';
 import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { TipsComponent } from './tips/tips.component';
+import { BackgroundCloudsComponent } from "./background-clouds/background-clouds.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  encapsulation: ViewEncapsulation.None,
-  animations: [cloudTransitionRight, cloudTransitionLeft, zoom, fadeZoomInOut],
-  imports: [
-    RouterOutlet,
-    CommonModule,
-    TimerDisplayComponent,
-    CloudComponent,
-    SvgComponent,
-    SettingsComponent,
-    ClipboardModule,
-    TipsComponent,
-  ],
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    encapsulation: ViewEncapsulation.None,
+    animations: [cloudTransitionRight, cloudTransitionLeft, zoom, fadeZoomInOut],
+    imports: [
+        RouterOutlet,
+        CommonModule,
+        TimerDisplayComponent,
+        CloudComponent,
+        SvgComponent,
+        SettingsComponent,
+        ClipboardModule,
+        TipsComponent,
+        BackgroundCloudsComponent
+    ]
 })
 export class AppComponent implements OnInit {
   @ViewChild(TimerDisplayComponent, { static: false })
