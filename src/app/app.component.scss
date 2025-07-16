@@ -1,12 +1,4 @@
-@font-face {
-  font-family: Simpsons;
-  src: url("../assets/Simpsonfont.otf") format("opentype");
-}
-
-$blue: #92d4f7;
-$yellow: #f7e892;
-$orange: #f76147;
-$simpson-yellow: #f7d700;
+@import "../vars.scss";
 
 :root {
   --background-color: #{$blue};
@@ -41,7 +33,7 @@ body {
   }
 }
 
-.content-wrapper{
+.content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,7 +49,7 @@ body {
   }
 }
 
-.settings{
+.settings {
   margin: auto;
 }
 
@@ -72,6 +64,13 @@ h1 {
   text-shadow: -3px 3px black;
   -webkit-text-stroke: 1px black;
   z-index: -1;
+  opacity: 1;
+  transition: all 250ms 250ms ease-in-out;
+
+  &.in-session {
+    scale: 0.1;
+    opacity: 0;
+  }
 }
 .summary {
   font-family: "Simpsons", sans-serif;
@@ -81,24 +80,17 @@ h1 {
   font-weight: 400;
 }
 .current-participant {
-  font-family: "Simpsons", sans-serif;
-  word-spacing: 0.5rem;
-  font-weight: 400;
   font-style: normal;
-  font-size: clamp(1rem, 1.5vw + 1rem, 4rem);
+  font-size: clamp(3rem, 1.5vw + 1rem, 4rem);
   text-align: center;
   text-transform: uppercase;
-  height: 1em;
   width: 100%;
-  color: black;
-  // text-shadow: -3px 3px black;
-  // -webkit-text-stroke: 1px black;
+  @include sim-font;
+
   span {
     display: inline-block;
     width: 100%;
     overflow: visible;
-    text-wrap: nowrap;
-    white-space: nowrap;
     text-align: center;
   }
 }
@@ -151,6 +143,9 @@ h1 {
   &.yellow {
     color: $simpson-yellow;
   }
+  &.red {
+    color: $red;
+  }
 
   &:before {
     display: block;
@@ -158,7 +153,7 @@ h1 {
     position: absolute;
     inset: 0;
     border-radius: 0.5em;
-    background-color: var(--background-color);
+    background-color: color-mix(in srgb, var(--background-color), white 50%);
     opacity: 0.5;
     z-index: -1;
     transition: background-color var(--bg-transition);
@@ -172,6 +167,8 @@ h1 {
   font-size: clamp(1.5rem, 1vw + 1rem, 5rem);
 }
 .sml-btn {
+  border: none;
+  box-shadow: none;
   font-size: clamp(1rem, 0.8vw + 1rem, 3rem);
   text-shadow: -2px 2px black;
 }
@@ -179,7 +176,18 @@ h1 {
 .center {
   text-align: center;
 }
+.timer-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
 
+  > button {
+    margin: 0;
+  }
+}
 .ralph {
   z-index: 4;
   display: block;
@@ -232,12 +240,8 @@ h1 {
   }
 }
 
-
-
 .session,
 .results-container,
 .settings {
   transform-origin: top center;
 }
-
-

@@ -38,6 +38,7 @@ export interface Settings {
   };
   useParticipants: boolean;
   participants: Participant[];
+  randomizeOrder: boolean;
 }
 
 @Component({
@@ -95,6 +96,7 @@ export class SettingsComponent implements OnInit, OnChanges {
       }),
       useParticipants: [true],
       participants: this.fb.array<FormGroup[]>([]),
+      randomizeOrder: [true],
     });
 
     this.initForm(false);
@@ -144,7 +146,7 @@ export class SettingsComponent implements OnInit, OnChanges {
       return;
     }
 
-    this.participants.insert(0, this.fb.group(makeParticipant(name, include)), {
+    this.participants.insert(this.participants.length, this.fb.group(makeParticipant(name, include)), {
       emitEvent: emit,
     });
   }

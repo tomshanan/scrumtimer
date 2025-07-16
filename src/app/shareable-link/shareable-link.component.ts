@@ -28,15 +28,17 @@ export class ShareableLinkComponent {
       p: this.settings.participants.map((p) => p.name).join(','),
       t: [this.settings.timer.min, this.settings.timer.sec].join(','),
       useP: this.settings.useParticipants,
+      rand: this.settings.randomizeOrder,
     };
-    this.router.navigate([], {
+
+    let url = this.router.createUrlTree([], {
       relativeTo: this.route,
       queryParams,
     });
 
     setTimeout(() => {
       const currentUrlWithQueryParams =
-        location.origin + '/' + this.location.path(true);
+        location.origin + url.toString();
       this.clipboard.copy(currentUrlWithQueryParams);
       this.linkCopied = true;
 

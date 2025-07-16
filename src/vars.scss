@@ -1,0 +1,16 @@
+$blue: #92d4f7;
+$yellow: #f7e892;
+$orange: #f76147;
+$red: #f13a1a;
+$simpson-yellow: #f7d700;
+
+@mixin sim-font {
+  font-family: "Simpsons", sans-serif;
+  word-spacing: 0.5rem;
+  font-weight: 400;
+  font-style: normal;
+  color: $simpson-yellow;
+  text-shadow: -3px 3px black;
+  -webkit-text-stroke: 1px black;
+}
+

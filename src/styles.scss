@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./vars.scss";
+
+@font-face {
+  font-family: Simpsons;
+  src: url("./assets/Simpsonfont.otf") format("opentype");
+}
+
 body,
 html {
   width: 100%;
@@ -62,3 +69,8 @@ html {
     display: block;
   }
 }
+
+.sim-text {
+  @include sim-font;
+}
+

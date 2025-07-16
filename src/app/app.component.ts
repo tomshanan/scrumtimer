@@ -36,30 +36,30 @@ import {
 import { Subject, filter, take } from 'rxjs';
 import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { TipsComponent } from './tips/tips.component';
-import { BackgroundCloudsComponent } from "./background-clouds/background-clouds.component";
-import { TransitionCloudsComponent } from "./transition-clouds/transition-clouds.component";
-import { ShareableLinkComponent } from "./shareable-link/shareable-link.component";
+import { BackgroundCloudsComponent } from './background-clouds/background-clouds.component';
+import { TransitionCloudsComponent } from './transition-clouds/transition-clouds.component';
+import { ShareableLinkComponent } from './shareable-link/shareable-link.component';
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.scss',
-    encapsulation: ViewEncapsulation.None,
-    animations: [cloudTransitionRight, cloudTransitionLeft, zoom, fadeZoomInOut],
-    imports: [
-        RouterOutlet,
-        CommonModule,
-        TimerDisplayComponent,
-        CloudComponent,
-        SvgComponent,
-        SettingsComponent,
-        ClipboardModule,
-        TipsComponent,
-        BackgroundCloudsComponent,
-        TransitionCloudsComponent,
-        ShareableLinkComponent
-    ]
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+  encapsulation: ViewEncapsulation.None,
+  animations: [cloudTransitionRight, cloudTransitionLeft, zoom, fadeZoomInOut],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    TimerDisplayComponent,
+    CloudComponent,
+    SvgComponent,
+    SettingsComponent,
+    ClipboardModule,
+    TipsComponent,
+    BackgroundCloudsComponent,
+    TransitionCloudsComponent,
+    ShareableLinkComponent,
+  ],
 })
 export class AppComponent implements OnInit {
   @ViewChild(TimerDisplayComponent, { static: false })
@@ -82,8 +82,6 @@ export class AppComponent implements OnInit {
 
   destroyListenerToRoute = new Subject<void>();
 
-
-
   get totalSessionTime(): number {
     return this.session.timeLog.reduce((t, log) => t + log.time, 0);
   }
@@ -98,6 +96,10 @@ export class AppComponent implements OnInit {
   }
   get showRalph() {
     return this.isWarning && this.ms / 1000 > this.timerLimitsConfig.alarm - 15;
+  }
+
+  get useParticipants() {
+    return this.settings.useParticipants;
   }
 
   constructor(
@@ -142,39 +144,35 @@ export class AppComponent implements OnInit {
   initSettings(params: ParamMap, storedSettings: Settings) {
     let queryParams = this.getSettingsFromQueryParams(params);
 
-    let participants: Participant[] =
-      queryParams.participants ??
-      storedSettings?.participants ??
-      defaultSettings.participants ??
-      [];
-    let timer =
-      queryParams.timer ?? storedSettings?.timer ?? defaultSettings.timer;
-    let useParticipants: boolean =
-      queryParams.useParticipants ??
-      storedSettings?.useParticipants ??
-      defaultSettings.useParticipants;
+    if(queryParams) {
+      this.router.navigate(['/'])
+    }
 
     this.settings = {
-      participants,
-      timer,
-      useParticipants,
+      ...defaultSettings,
+      ...storedSettings,
+      ...queryParams,
     };
   }
 
-  getSettingsFromQueryParams(params: ParamMap): {
-    [K in keyof Settings]: Settings[K] | null;
+  getSettingsFromQueryParams(params: ParamMap): null | {
+    [K in keyof Settings]: Settings[K];
   } {
-    let participants: Participant[] | null = null;
-    let timer: Settings['timer'] | null = null;
-    let useParticipants: boolean | null = null;
+    let participants: Participant[] = defaultSettings.participants;
+    let timer: Settings['timer'] = defaultSettings.timer;
+    let useParticipants: boolean = defaultSettings.useParticipants;
+    let randomizeOrder: boolean = defaultSettings.randomizeOrder;
+    let hasParams = false;
 
     if (params.has('p')) {
+      hasParams = true;
       const names = (params.get('p') as string).split(',');
       if (names.length > 0) {
         participants = names.map((n) => makeParticipant(n, true));
       }
     }
     if (params.has('t')) {
+      hasParams = true;
       let time = (params.get('t') as string).split(',').map((v) => +v);
       if (
         time.length === 2 &&
@@ -190,14 +188,21 @@ export class AppComponent implements OnInit {
       }
     }
     if (params.has('useP')) {
+      hasParams = true;
       let useP = params.get('useP');
       useParticipants = useP === 'true';
     }
+    if (params.has('rand')) {
+      hasParams = true;
+      let rand = params.get('rand');
+      randomizeOrder = rand === 'true';
+    }
 
-    return {
+    return !hasParams ? null :{
       participants,
       timer,
       useParticipants,
+      randomizeOrder,
     };
   }
 
@@ -237,14 +242,18 @@ export class AppComponent implements OnInit {
   }
 
   startSession() {
-    const { participants, timer, useParticipants } = this.settings;
+    const { participants, timer, useParticipants, randomizeOrder } =
+      this.settings;
     let participantNames: string[] = [];
 
     if (useParticipants) {
       participantNames = participants
         .filter((p) => p.include)
         .map((p) => p.name);
-      shuffle(participantNames);
+
+      if (randomizeOrder) {
+        shuffle(participantNames);
+      }
     }
 
     if (participantNames.length === 0 || !useParticipants) {
@@ -253,7 +262,7 @@ export class AppComponent implements OnInit {
 
     this.session = {
       state: sessionState.STARTED,
-      participants: shuffle(participantNames),
+      participants: participantNames,
       currentParticipant: 0,
       timeLog: [],
     };
@@ -317,6 +326,4 @@ export class AppComponent implements OnInit {
     this.session = { ...defaultSession };
     this.document.defaultView?.scrollTo(0, 0);
   }
-
-
 }

@@ -8,6 +8,7 @@ export const defaultSettings:Settings = {
   },
   useParticipants: true,
   participants: [{include: true, name: 'Active Anna'}, {include: false, name: 'Inactive Ingrid'}],
+  randomizeOrder: true,
 }
 
 export const defaultSession: Session = {

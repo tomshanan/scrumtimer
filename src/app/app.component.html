@@ -11,7 +11,7 @@
 <app-transition-clouds [trigger]="session.state"></app-transition-clouds>
 
 <div class="content-wrapper">
-  <h1>The Ralph Timer</h1>
+  <h1 [class.in-session]="session.state === sessionState.STARTED">The Ralph Timer</h1>
 
   <app-shareable-link [settings]="settings"  *ngIf="session.state === sessionState.SETUP"></app-shareable-link>
 
@@ -42,26 +42,27 @@
               #timer></app-timer-display>
           </div>
           <div class="center">
-            <button
-              class="btn sml-btn"
-              (mousedown)="timer.startStopTimer()">
-              {{isRunning ? 'Pause' : 'Start'}}
-            </button>
-            @if(nextParticipant){
+            <div class="timer-controls">
               <button
                 class="btn sml-btn"
-                (mousedown)="snooze();">
-                Snooze
+                (mousedown)="timer.startStopTimer()">
+                {{isRunning ? 'Pause' : 'Start'}}
               </button>
-            }
-            <button
-              class="btn sml-btn"
-              (mousedown)="timer.restartTimer();">
-              Restart
-            </button>
+              @if(nextParticipant){
+                <button
+                  class="btn sml-btn"
+                  (mousedown)="snooze();">
+                  Snooze
+                </button>
+              }
+              <button
+                class="btn sml-btn"
+                (mousedown)="timer.restartTimer();">
+                Restart
+              </button>
+            </div>
 
             @if (nextParticipant) {
-              <br>
               <button
               class="btn med-btn yellow"
               (mousedown)="next()">
@@ -71,16 +72,20 @@
             @else {
               <br>
               <button
-              class="btn med-btn"
+              class="btn"
+              [ngClass]="!useParticipants ? 'big-btn yellow' : 'sml-btn'"
               (mousedown)="addSpeaker()">
               Add Speaker
             </button>
+            }
+            <br>
             <button
-              class="btn med-btn yellow"
+              class="btn"
+              [ngClass]="!nextParticipant && useParticipants ? 'big-btn yellow' : 'sml-btn red'"
               (mousedown)="finish()">
               Finish
             </button>
-            }
+
 
           </div>
         </div>
@@ -116,7 +121,7 @@
   }
 </div>
 
-  <div style="max-width: 75ch; width: 100%; position: relative;">
+  <!-- <div style="max-width: 75ch; width: 100%; position: relative;">
     <app-tips></app-tips>
-  </div>
+  </div> -->
 </div>

@@ -1,12 +1,29 @@
 h3 {
   font-family: "Simpsons", sans-serif;
   letter-spacing: 0.15em;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .time-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2em;
+  }
+
+  .participants-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2em;
+    gap: 10px;
+  }
 }
 
 .timer-settings {
@@ -19,8 +36,10 @@ form {
     touch-action: manipulation;
     background-color: transparent;
     border: none;
-    padding: 10px;
-    font-size: clamp(1.5rem, 3vw + 1rem, 5rem);
+    font-weight: 900;
+    padding: 15px;
+    font-size: clamp(2rem, 3vw + 1rem, 5rem);
+
     cursor: pointer;
     &:hover {
       transform: scale(1.2);
@@ -82,16 +101,19 @@ form {
   width: clamp(200px, 80vw, 750px);
 
   .participant {
+    $background: #ffffff;
+    $fontColor: black;
+    $fade: rgb(126, 126, 126);
+    $background-faded: mix($background, $fade, 50%);
+    $fontColor-faded: mix($fontColor, $fade, 50%);
     display: flex;
     flex-direction: row;
     gap: 10px;
     font-family: "Simpsons", sans-serif;
     text-transform: uppercase;
-    $background: #ff81c1;
     box-shadow: -3px 3px black;
-    $background-faded: mix($background, white, 20);
     background: $background-faded;
-    color: black;
+    color: $fontColor-faded;
     font-size: 1.2rem;
     padding: 0.3rem;
     border-radius: 0.5em;
@@ -99,6 +121,7 @@ form {
 
     &:has(input:checked) {
       background: $background;
+      color: $fontColor;
       border: 1px solid darken($color: $background, $amount: 10);
     }
     .remove {
